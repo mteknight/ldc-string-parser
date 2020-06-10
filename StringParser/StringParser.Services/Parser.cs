@@ -12,7 +12,10 @@ namespace StringParser.Services
                 throw new ArgumentNullException(nameof(stringsToParse));
             }
 
-            return default(IEnumerable<string>);
+            foreach (var stringToParse in stringsToParse)
+            {
+                yield return default(string);
+            }
         }
     }
 }
