@@ -7,7 +7,12 @@ namespace StringParser.Services
     {
         public IEnumerable<string> Parse(IEnumerable<string> stringsToParse)
         {
-            throw new NotImplementedException();
+            if (stringsToParse is null)
+            {
+                throw new ArgumentNullException(nameof(stringsToParse));
+            }
+
+            return default(IEnumerable<string>);
         }
     }
 }
