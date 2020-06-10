@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Xunit;
 
@@ -7,6 +8,23 @@ namespace StringParser.Services.Tests.Parser
 {
     public class ParserTests
     {
+        [Theory]
+        [MemberData(nameof(ParserTestData.StringsToParse), MemberType = typeof(ParserTestData))]
+        public void TestParse_WhenValidDataProvided_ExpectParsedCollection(
+            IEnumerable<string> stringsToParse,
+            IEnumerable<string> expectedParsedStrings)
+        {
+            // Arrange
+            var parser = new Services.Parser();
+
+            // Act
+            var result = parser.Parse(stringsToParse);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.True(expectedParsedStrings.SequenceEqual(result));
+        }
+
         [Fact]
         public void TestParse_WhenStringCollectionIsNull_ExpectArgumentNullException()
         {
