@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Xunit;
 
-namespace StringParser.Services.Tests
+namespace StringParser.Services.Tests.Parser
 {
     public class ParserTests
     {
@@ -12,7 +12,7 @@ namespace StringParser.Services.Tests
         {
             // Arrange
             var stringsToParse = default(IEnumerable<string>);
-            var parser = new Parser();
+            var parser = new Services.Parser();
 
             // Act
             void SutCall() => parser.Parse(stringsToParse);
