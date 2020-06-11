@@ -20,5 +20,14 @@ namespace StringParser.Services.Tests.Parser
                 new object[] {"abcdefghijklmnopqrstuvwxyz"},
                 new object[] {"sd89af79df8asdf787276sdaf536f56dsa54dfs76sdf4a5sdf323f56sad"}
             };
+
+        public static IEnumerable<object[]> StringsForDuplicatesTest =>
+            new[]
+            {
+                new object[] {"abcdd", "abcd"},
+                new object[] { "abcdddd", "abcd" },
+                new object[] { "abcddDd", "abcdDd" },
+                new object[] { "abcddDDdD", "abcdDdD" },
+            };
     }
 }

@@ -39,6 +39,23 @@ namespace StringParser.Services.Tests.Parser
             Assert.True(result.All(str => str.Length <= 15));
         }
 
+        [Theory]
+        [MemberData(nameof(ParserTestData.StringsForDuplicatesTest), MemberType = typeof(ParserTestData))]
+        public void TestParse_WhenStringContainsConsecutiveCaseSensitiveDuplicates_ExpectDuplicatesRemoved(
+            string stringToParse,
+            string expectedResult)
+        {
+            // Arrange
+            var parser = new Services.Parser();
+            var expectedParsedStrings = new[] { expectedResult };
+
+            // Act
+            var result = parser.Parse(new[] { stringToParse });
+
+            // Assert
+            Assert.True(result.SequenceEqual(expectedParsedStrings));
+        }
+
         [Fact]
         public void TestParse_WhenStringCollectionIsNull_ExpectArgumentNullException()
         {
