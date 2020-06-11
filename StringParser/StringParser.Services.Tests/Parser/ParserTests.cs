@@ -36,7 +36,6 @@ namespace StringParser.Services.Tests.Parser
             var result = parser.Parse(new[] { stringToParse });
 
             // Assert
-            Assert.NotNull(result);
             Assert.True(result.All(str => str.Length <= 15));
         }
 
