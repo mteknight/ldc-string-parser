@@ -16,6 +16,11 @@ namespace StringParser.Services
 
             foreach (var stringToParse in stringsToParse)
             {
+                if (string.IsNullOrEmpty(stringToParse))
+                {
+                    continue;
+                }
+
                 var parsedString = new StringBuilder(stringToParse);
 
                 parsedString.Replace('$', '£');
