@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StringParser.Services
 {
-    public class Parser
+    public class Parser : IParser
     {
         public IEnumerable<string> Parse(IEnumerable<string> stringsToParse)
         {

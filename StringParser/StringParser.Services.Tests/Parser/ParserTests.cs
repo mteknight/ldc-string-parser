@@ -8,15 +8,19 @@ namespace StringParser.Services.Tests.Parser
 {
     public class ParserTests
     {
+        public ParserTests()
+        {
+            _parser = new Services.Parser();
+        }
+
+        private readonly IParser _parser;
+
         [Theory]
         [MemberData(nameof(ParserTestData.StringsForTruncateTest), MemberType = typeof(ParserTestData))]
         public void TestParse_WhenStringHasMoreThan15Characters_ExpectTruncatedOutput(string stringToParse)
         {
-            // Arrange
-            var parser = new Services.Parser();
-
             // Act
-            var result = parser.Parse(new[] { stringToParse });
+            var result = _parser.Parse(new[] { stringToParse });
 
             // Assert
             Assert.True(result.All(str => str.Length <= 15));
@@ -29,11 +33,11 @@ namespace StringParser.Services.Tests.Parser
             string expectedResult)
         {
             // Arrange
-            var parser = new Services.Parser();
+            var stringsCollection = new[] { stringToParse };
             var expectedParsedStrings = new[] { expectedResult };
 
             // Act
-            var result = parser.Parse(new[] { stringToParse });
+            var result = _parser.Parse(stringsCollection);
 
             // Assert
             Assert.True(result.SequenceEqual(expectedParsedStrings));
@@ -46,11 +50,11 @@ namespace StringParser.Services.Tests.Parser
             string expectedResult)
         {
             // Arrange
-            var parser = new Services.Parser();
+            var stringsCollection = new[] { stringToParse };
             var expectedParsedStrings = new[] { expectedResult };
 
             // Act
-            var result = parser.Parse(new[] { stringToParse });
+            var result = _parser.Parse(stringsCollection);
 
             // Assert
             Assert.True(result.SequenceEqual(expectedParsedStrings));
@@ -63,11 +67,11 @@ namespace StringParser.Services.Tests.Parser
             string expectedResult)
         {
             // Arrange
-            var parser = new Services.Parser();
+            var stringsCollection = new[] { stringToParse };
             var expectedParsedStrings = new[] { expectedResult };
 
             // Act
-            var result = parser.Parse(new[] { stringToParse });
+            var result = _parser.Parse(stringsCollection);
 
             // Assert
             Assert.True(result.SequenceEqual(expectedParsedStrings));
@@ -78,11 +82,8 @@ namespace StringParser.Services.Tests.Parser
         public void TestParse_WhenCalledWithValidData_ExpectNotNullReturn(
             IEnumerable<string> stringsToParse)
         {
-            // Arrange
-            var parser = new Services.Parser();
-
             // Act
-            var result = parser.Parse(stringsToParse);
+            var result = _parser.Parse(stringsToParse);
 
             // Assert
             Assert.NotNull(result);
@@ -94,10 +95,9 @@ namespace StringParser.Services.Tests.Parser
         {
             // Arrange
             var stringsToParse = default(IEnumerable<string>);
-            var parser = new Services.Parser();
 
             // Act
-            void SutCall() => parser.Parse(stringsToParse).ToArray();
+            void SutCall() => _parser.Parse(stringsToParse).ToArray();
 
             // Assert
             Assert.Throws<ArgumentNullException>(SutCall);
