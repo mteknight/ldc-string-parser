@@ -17,8 +17,8 @@ namespace StringParser.Services
             {
                 var parsedString = new StringBuilder(stringToParse);
 
+                parsedString.Replace('$', '£');
                 RemoveConsecutiveDuplicates(parsedString);
-
                 parsedString = TruncateString(parsedString);
 
                 yield return parsedString.ToString();
