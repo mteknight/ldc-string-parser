@@ -38,5 +38,15 @@ namespace StringParser.Services.Tests.Parser
                 new object[] {"abc$de$$safds$$", "abc£de£safds£"},
                 new object[] {"abc$de$£safds£$", "abc£de£safds£"},
             };
+
+        public static IEnumerable<object[]> StringsForUnwantedCharactersTest =>
+            new[]
+            {
+                new object[] {"abc4dac", "abcdac"},
+                new object[] {"abcd_ac", "abcdac"},
+                new object[] {"abc4_dac", "abcdac"},
+                new object[] {"abc44d_ac", "abcdac"},
+                new object[] {"abc4da__c", "abcdac"},
+            };
     }
 }
