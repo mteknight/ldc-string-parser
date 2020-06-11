@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StringParser.Services
 {
@@ -14,7 +15,19 @@ namespace StringParser.Services
 
             foreach (var stringToParse in stringsToParse)
             {
-                var parsedString = TruncateString(stringToParse);
+                var parsedString = stringToParse;
+
+                var characters = parsedString.ToCharArray();
+                var results = new List<char>();
+
+                foreach (var character in characters)
+                {
+                    if (results.Count == 0 || results.Last() != character)
+                        results.Add(character);
+                }
+
+                parsedString = string.Join(string.Empty, results);
+                parsedString = TruncateString(parsedString);
 
                 yield return parsedString;
             }
