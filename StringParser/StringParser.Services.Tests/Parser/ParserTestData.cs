@@ -5,10 +5,12 @@ namespace StringParser.Services.Tests.Parser
 {
     public class ParserTestData
     {
-        public static IEnumerable<object[]> StringsToParseWithVanillaOutput =>
+        public static IEnumerable<object[]> StringsForValidOutputTest =>
             new[]
             {
-                new object[] { Array.Empty<string>(), Array.Empty<string>() },
+                new object[] { Array.Empty<string>() },
+                new object[] { new[] { default(string) } },
+                new object[] { new[] { string.Empty } },
             };
 
         public static IEnumerable<object[]> StringsForTruncateTest =>

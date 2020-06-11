@@ -9,23 +9,6 @@ namespace StringParser.Services.Tests.Parser
     public class ParserTests
     {
         [Theory]
-        [MemberData(nameof(ParserTestData.StringsToParseWithVanillaOutput), MemberType = typeof(ParserTestData))]
-        public void TestParse_WhenValidDataProvided_ExpectParsedCollection(
-            IEnumerable<string> stringsToParse,
-            IEnumerable<string> expectedParsedStrings)
-        {
-            // Arrange
-            var parser = new Services.Parser();
-
-            // Act
-            var result = parser.Parse(stringsToParse);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.True(expectedParsedStrings.SequenceEqual(result));
-        }
-
-        [Theory]
         [MemberData(nameof(ParserTestData.StringsForTruncateTest), MemberType = typeof(ParserTestData))]
         public void TestParse_WhenStringHasMoreThan15Characters_ExpectTruncatedOutput(string stringToParse)
         {
@@ -88,6 +71,22 @@ namespace StringParser.Services.Tests.Parser
 
             // Assert
             Assert.True(result.SequenceEqual(expectedParsedStrings));
+        }
+
+        [Theory]
+        [MemberData(nameof(ParserTestData.StringsForValidOutputTest), MemberType = typeof(ParserTestData))]
+        public void TestParse_WhenCalledWithValidData_ExpectNotNullReturn(
+            IEnumerable<string> stringsToParse)
+        {
+            // Arrange
+            var parser = new Services.Parser();
+
+            // Act
+            var result = parser.Parse(stringsToParse);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.True(result.All(@string => !string.IsNullOrEmpty(@string)));
         }
 
         [Fact]
