@@ -9,7 +9,7 @@ namespace StringParser.Services.Tests.Parser
     public class ParserTests
     {
         [Theory]
-        [MemberData(nameof(ParserTestData.StringsToParse), MemberType = typeof(ParserTestData))]
+        [MemberData(nameof(ParserTestData.StringsToParseWithVanillaOutput), MemberType = typeof(ParserTestData))]
         public void TestParse_WhenValidDataProvided_ExpectParsedCollection(
             IEnumerable<string> stringsToParse,
             IEnumerable<string> expectedParsedStrings)
@@ -33,7 +33,7 @@ namespace StringParser.Services.Tests.Parser
             var parser = new Services.Parser();
 
             // Act
-            void SutCall() => parser.Parse(stringsToParse);
+            void SutCall() => parser.Parse(stringsToParse).ToArray();
 
             // Assert
             Assert.Throws<ArgumentNullException>(SutCall);
