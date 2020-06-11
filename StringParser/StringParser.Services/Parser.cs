@@ -21,15 +21,29 @@ namespace StringParser.Services
                     continue;
                 }
 
-                var parsedString = new StringBuilder(stringToParse);
-
-                parsedString.Replace('$', '£');
-
-                RemoveUnwantedOrDuplicatesCharacters(parsedString);
-                parsedString = TruncateString(parsedString);
+                var parsedString = Parse(stringToParse);
 
                 yield return parsedString.ToString();
             }
+        }
+
+        private static StringBuilder Parse(string stringToParse)
+        {
+            var parsedString = new StringBuilder(stringToParse);
+
+            ReplaceDollarSigns(parsedString);
+            RemoveUnwantedOrDuplicatesCharacters(parsedString);
+            TruncateString(parsedString);
+
+            return parsedString;
+        }
+
+        private static void ReplaceDollarSigns(StringBuilder parsedString)
+        {
+            const char dollar = '$';
+            const char pound = '£';
+
+            parsedString.Replace(dollar, pound);
         }
 
         private static void RemoveUnwantedOrDuplicatesCharacters(StringBuilder parsedString)
@@ -49,15 +63,16 @@ namespace StringParser.Services
             }
         }
 
-        private static StringBuilder TruncateString(StringBuilder stringToTruncate)
+        private static void TruncateString(StringBuilder stringToTruncate)
         {
-            var maxLength = stringToTruncate.Length < 15
+            const int maxLength = 15;
+            var length = stringToTruncate.Length < maxLength
                 ? stringToTruncate.Length
-                : 15;
+                : maxLength;
 
-            var excessLength = stringToTruncate.Length - maxLength;
+            var excessLength = stringToTruncate.Length - length;
 
-            return stringToTruncate.Remove(maxLength, excessLength);
+            stringToTruncate.Remove(length, excessLength);
         }
     }
 }
