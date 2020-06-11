@@ -25,6 +25,21 @@ namespace StringParser.Services.Tests.Parser
             Assert.True(expectedParsedStrings.SequenceEqual(result));
         }
 
+        [Theory]
+        [MemberData(nameof(ParserTestData.StringsForTruncateTest), MemberType = typeof(ParserTestData))]
+        public void TestParse_WhenStringHasMoreThan15Characters_ExpectTruncatedOutput(string stringToParse)
+        {
+            // Arrange
+            var parser = new Services.Parser();
+
+            // Act
+            var result = parser.Parse(new[] { stringToParse });
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.True(result.All(str => str.Length <= 15));
+        }
+
         [Fact]
         public void TestParse_WhenStringCollectionIsNull_ExpectArgumentNullException()
         {
