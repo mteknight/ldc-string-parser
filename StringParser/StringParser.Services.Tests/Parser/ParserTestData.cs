@@ -29,5 +29,14 @@ namespace StringParser.Services.Tests.Parser
                 new object[] { "abcddDd", "abcdDd" },
                 new object[] { "abcddDDdD", "abcdDdD" },
             };
+
+        public static IEnumerable<object[]> StringsForDollarReplacementTest =>
+            new[]
+            {
+                new object[] {"abc$de", "abc£de"},
+                new object[] {"abc$de$safds$", "abc£de£safds£"},
+                new object[] {"abc$de$$safds$$", "abc£de£safds£"},
+                new object[] {"abc$de$£safds£$", "abc£de£safds£"},
+            };
     }
 }

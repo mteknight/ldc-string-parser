@@ -56,6 +56,23 @@ namespace StringParser.Services.Tests.Parser
             Assert.True(result.SequenceEqual(expectedParsedStrings));
         }
 
+        [Theory]
+        [MemberData(nameof(ParserTestData.StringsForDollarReplacementTest), MemberType = typeof(ParserTestData))]
+        public void TestParser_WhenStringContainsDollarSigns_ExpectDollarSignsReplacedByPoundSigns(
+            string stringToParse,
+            string expectedResult)
+        {
+            // Arrange
+            var parser = new Services.Parser();
+            var expectedParsedStrings = new[] { expectedResult };
+
+            // Act
+            var result = parser.Parse(new[] { stringToParse });
+
+            // Assert
+            Assert.True(result.SequenceEqual(expectedParsedStrings));
+        }
+
         [Fact]
         public void TestParse_WhenStringCollectionIsNull_ExpectArgumentNullException()
         {
