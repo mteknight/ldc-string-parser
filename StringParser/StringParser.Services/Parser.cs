@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 
 namespace StringParser.Services
 {
@@ -15,31 +15,40 @@ namespace StringParser.Services
 
             foreach (var stringToParse in stringsToParse)
             {
-                var parsedString = stringToParse;
+                var parsedString = new StringBuilder(stringToParse);
 
-                var characters = parsedString.ToCharArray();
-                var results = new List<char>();
+                RemoveConsecutiveDuplicates(parsedString);
 
-                foreach (var character in characters)
-                {
-                    if (results.Count == 0 || results.Last() != character)
-                        results.Add(character);
-                }
-
-                parsedString = string.Join(string.Empty, results);
                 parsedString = TruncateString(parsedString);
 
-                yield return parsedString;
+                yield return parsedString.ToString();
             }
         }
 
-        private static string TruncateString(string stringToParse)
+        private static void RemoveConsecutiveDuplicates(StringBuilder parsedString)
         {
-            var maxLength = stringToParse.Length < 15
-                ? stringToParse.Length
+            for (var i = 1; i < parsedString.Length; i++)
+            {
+                var character = parsedString[i];
+                var previousCharacter = parsedString[i - 1];
+
+                if (character == previousCharacter)
+                {
+                    parsedString.Remove(i, 1);
+                    i--;
+                }
+            }
+        }
+
+        private static StringBuilder TruncateString(StringBuilder stringToTruncate)
+        {
+            var maxLength = stringToTruncate.Length < 15
+                ? stringToTruncate.Length
                 : 15;
 
-            return stringToParse.Substring(0, maxLength);
+            var excessLength = stringToTruncate.Length - maxLength;
+
+            return stringToTruncate.Remove(maxLength, excessLength);
         }
     }
 }
