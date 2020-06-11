@@ -14,7 +14,10 @@ namespace StringParser.Services
 
             foreach (var stringToParse in stringsToParse)
             {
-                yield return default(string);
+                var maxLength = stringToParse.Length < 15 ? stringToParse.Length : 15;
+                var parsedString = stringToParse.Substring(0, maxLength);
+
+                yield return parsedString;
             }
         }
     }
